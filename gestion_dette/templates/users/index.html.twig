@@ -1,0 +1,165 @@
+{% extends 'base.html.twig' %}
+
+
+{% block main %} {#
+-------------------------------- TABLEAU ----------------------- #}
+<div class="margin-auto mt-10 p-5">
+  {{ form_errors(formSearch.login) }}
+  <div class="flex flex-row justify-between px-5 mb-5">
+    {{
+      form_start(formSearch, {
+        attr: {
+          class:
+            "w-fit border-collapse flex flex-row align-middle justify-center "
+        }
+      })
+    }}
+    <div class="relative">
+      <div
+        class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-user-search"
+        >
+          <circle cx="10" cy="7" r="4" />
+          <path d="M10.3 15H7a4 4 0 0 0-4 4v2" />
+          <circle cx="17" cy="17" r="3" />
+          <path d="m21 21-1.9-1.9" />
+        </svg>
+      </div>
+      {{ form_widget(formSearch.login) }}
+    </div>
+    {{ form_widget(formSearch.search) }}
+    {{ form_end(formSearch) }}
+
+    <a
+      href="{{ path('user.create') }}"
+      class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-sm text-center px-8 py-2"
+    >
+      Add user
+    </a>
+  </div>
+
+  {# --------------------------------- #}
+  <div class="relative overflow-x-auto sm:rounded-lg shadow-xl">
+    <table class="w-full mb-5 text-sm text-left rtl:text-right text-gray-500 ">
+      <thead class="text-sm text-white uppercase bg-gradient-to-br from-green-400 to-blue-600">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            <p>Prenom</p>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <p>Nom</p>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <p>Login</p>
+          </th>
+          <th scope="col" class="px-6 py-3">
+            <p>Action</p>
+          </th>
+        </tr>
+      </thead>
+      {% if users == null %}
+      <tr>
+        <td colspan="5" class="text-center">Aucun client trouvé</td>
+      </tr>
+      {% endif %}
+      <tbody>
+        {% for user in users %}
+        <tr class="bg-white border-b hover:bg-blue-200">
+          <td class="px-6 py-4">
+            {{ user.prenom }}
+          </td>
+          <td class="px-6 py-4">
+            {{ user.nom }}
+          </td>
+          <td class="px-6 py-4">
+            {{ user.login }}
+          </td>
+          <td class="px-6 py-4">
+            <a href="#" class="font-medium text-green-500 hover:underline"
+              >voir détail</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- Pagination -->
+    {# <nav
+      aria-label="Page navigation example"
+      class="mt-3 flex justify-end mb-5"
+    >
+      <ul class="flex items-center -space-x-px h-8 text-sm">
+        {% if currentPage > 1 %}
+        <li>
+          <a
+            href="{{ path('client.index', { page: currentPage - 1 }) }}"
+            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+          >
+            <span class="sr-only">Previous</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 1 1 5l4 4"
+              />
+            </svg>
+          </a>
+        </li>
+        {% endif %} {% for i in 1..totalPages %}
+        <li>
+          <a
+            href="{{ path('client.index', { page: i }) }}"
+            class="flex items-center justify-center px-3 h-8 leading-tight border {% if i == currentPage %} z-10 text-blue-500 border-blue-300 bg-blue-100 hover:bg-blue-200 hover:text-blue-300 {% else %}text-gray-500 bg-white border-gray-300 hover:bg-gray-100 hover:text-gray-700 {% endif %}"
+          >
+            {{ i }}
+          </a>
+        </li>
+        {% endfor %} {% if currentPage < totalPages %}
+        <li>
+          <a
+            href="{{ path('client.index', { page: currentPage + 1 }) }}"
+            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+          >
+            <span class="sr-only">Next</span>
+            <svg
+              class="w-2.5 h-2.5 rtl:rotate-180"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 6 10"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 9 4-4-4-4"
+              />
+            </svg>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </nav> #}
+  </div>
+</div> {% endblock %}
+
